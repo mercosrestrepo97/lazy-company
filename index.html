@@ -1909,7 +1909,12 @@
     const msgs = document.getElementById('chat-messages');
     const div = document.createElement('div');
     div.className = 'msg ' + type;
-    div.textContent = text;
+    const escaped = text
+      .replace(/&/g, '&amp;')
+      .replace(/</g, '&lt;')
+      .replace(/>/g, '&gt;');
+    const formatted = escaped.split('\n').join('<br>');
+    div.innerHTML = formatted;
     msgs.appendChild(div);
     msgs.scrollTop = msgs.scrollHeight;
     return div;
